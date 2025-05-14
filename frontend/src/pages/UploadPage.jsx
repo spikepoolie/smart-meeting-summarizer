@@ -29,6 +29,7 @@ export default function UploadPage() {
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
   const appTitle = "AI Meeting Summary Generator";
 
   useEffect(() => {
@@ -48,7 +49,8 @@ export default function UploadPage() {
       setFile(selected);
       setPreview(URL.createObjectURL(selected));
     } else {
-      alert("Unsupported file type");
+      setPopupMessage("Unsupported file type!");
+      setShowPopup(true);
       setFile(null);
       setPreview(null);
     }
@@ -97,7 +99,9 @@ export default function UploadPage() {
       );
 
       const { jobName } = uploadRes.data;
-      setMessage("Transcribing audio… please wait.");
+      setMessage(
+        "Transcribing audio… please wait.\nIt can take a little while."
+      );
 
       const transcript = await waitForTranscript(jobName);
 
@@ -130,21 +134,39 @@ export default function UploadPage() {
     setTimeout(() => {
       setUploading(false);
       setMessage("");
+      setPopupMessage("PDF downloaded successfully!");
       setShowPopup(true); // Show popup
     }, 1000);
+  };
+
+  const handleSampleFile = async (url, filename) => {
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], filename, { type: blob.type });
+
+      // Create a synthetic event that matches the shape of a real file input event
+      const syntheticEvent = {
+        target: {
+          files: [file],
+        },
+      };
+
+      handleFileChange(syntheticEvent);
+    } catch (err) {
+      console.error("Failed to fetch sample file", err);
+      setShowPopup(true);
+      setMessage("Failed to read sample file");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-[640px] bg-white rounded-xl shadow-md p-10 space-y-6">
         <div className="flex items-center justify-center space-x-4 mb-6">
-          <img
-            src={AiMeetingOrganizer}
-            alt="AI Meeting Summary Generator"
-            className="w-12 h-12"
-          />
+          <img src={AiMeetingOrganizer} alt={appTitle} className="w-12 h-12" />
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
-            AI Meeting Summary Generator
+            {appTitle}
           </h1>
         </div>
 
@@ -154,6 +176,7 @@ export default function UploadPage() {
             handleFileChange={handleFileChange}
             message={"Upload meeting file"}
             chooseFileMessage="Choose File"
+            handleSampleFile={handleSampleFile}
           />
 
           {file && <FileInfo file={file} />}
@@ -184,7 +207,7 @@ export default function UploadPage() {
         {showPopup && (
           <Popup
             handleClosePopup={handleClosePopup}
-            message="Your PDF has been downloaded"
+            message={popupMessage}
             btnText="Close"
           />
         )}

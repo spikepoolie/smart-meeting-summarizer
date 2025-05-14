@@ -7,7 +7,6 @@ export default function Summary({ summary, downloadPDF }) {
   }
   return (
     <div className="bg-gray-50 p-4 rounded border border-gray-200">
-      <h2 className="font-semibold text-lg mb-2 text-gray-800">Summary:</h2>
       <p className="text-gray-700 whitespace-pre-wrap">{summary}</p>
 
       <button

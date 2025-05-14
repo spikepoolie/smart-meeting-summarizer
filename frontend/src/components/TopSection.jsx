@@ -6,7 +6,10 @@ export default function TopSection({
   handleFileChange,
   message,
   chooseFileMessage,
+  handleSampleFile,
 }) {
+  const sampleFile =
+    "https://ai-meeting-summary.s3.us-east-1.amazonaws.com/sample-files/Special+Meeting+Audio+File+-+April+29%2C+2025.mp3";
   return (
     <>
       <label className="text-sm font-medium text-gray-700">
@@ -28,6 +31,16 @@ export default function TopSection({
           <ArrowUpTrayIcon className="w-5 h-5" />
           {chooseFileMessage || "Choose File"}
         </label>
+      </div>
+
+      <div className="mt-4">
+        <p className="text-sm text-gray-600 mb-1">Or try a sample file:</p>
+        <button
+          className="text-blue-600 hover:underline text-sm"
+          onClick={() => handleSampleFile(sampleFile)}
+        >
+          ▶️ Use Sample Audio (.mp3)
+        </button>
       </div>
     </>
   );

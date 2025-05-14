@@ -4,7 +4,8 @@ export default function FileInfo({ file }) {
   return (
     <div className="bg-gray-100 p-3 rounded text-sm text-gray-700 border">
       <p>
-        <strong>Name:</strong> {file.name}
+        <strong>Name:</strong>{" "}
+        {file.name !== "undefined" ? file.name : "Meeting sample file"}
       </p>
       <p>
         <strong>Type:</strong> {file.type}
