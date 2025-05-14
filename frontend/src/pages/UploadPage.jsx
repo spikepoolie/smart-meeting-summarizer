@@ -7,6 +7,7 @@ import Popup from "../components/PouPup";
 import Summary from "../components/Summary";
 import TopSection from "../components/TopSection";
 import UploadButton from "../components/UploadButton";
+import AiMeetingOrganizer from "../images/ai-meeting-logo.png";
 
 const allowedTypes = [
   "audio/mpeg",
@@ -136,9 +137,16 @@ export default function UploadPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-[640px] bg-white rounded-xl shadow-md p-10 space-y-6">
-        <h1 className="text-3xl font-bold text-center text-gray-800">
-          {appTitle}
-        </h1>
+        <div className="flex items-center justify-center space-x-4 mb-6">
+          <img
+            src={AiMeetingOrganizer}
+            alt="AI Meeting Summary Generator"
+            className="w-12 h-12"
+          />
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+            AI Meeting Summary Generator
+          </h1>
+        </div>
 
         <div className="flex flex-col gap-3">
           <TopSection
