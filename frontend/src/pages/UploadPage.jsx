@@ -96,6 +96,7 @@ export default function UploadPage() {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      alert(`${baseUrl}/api/transcribe/upload`);
       const { jobName } = uploadRes.data;
       setMessage(
         "Transcribing audio… please wait.\nIt can take a little while."
