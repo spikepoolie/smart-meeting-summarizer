@@ -10,7 +10,13 @@ const pineconeRoutes = require('./routes/pineconeRoutes');
 const summarizeRoutes = require('./routes/summarizeRoutes');
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // For testing — replace with actual domain for production
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: false,
+  })
+);
 app.use(express.json());
 
 // Serve uploaded audio files if needed

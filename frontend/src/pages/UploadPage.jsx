@@ -81,7 +81,6 @@ export default function UploadPage() {
 
   const handleUpload = async () => {
     if (!file) return;
-
     const formData = new FormData();
     formData.append("file", file);
     setUploading(true);
@@ -97,7 +96,6 @@ export default function UploadPage() {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-
       const { jobName } = uploadRes.data;
       setMessage(
         "Transcribing audio… please wait.\nIt can take a little while."
@@ -113,6 +111,17 @@ export default function UploadPage() {
       setSummary(sumRes.data.summary);
       setMessage("✅ Summary complete!");
     } catch (err) {
+      if (err.response) {
+        console.error("Upload failed with response:", err.response.data);
+        alert(
+          `Upload failed: ${err.response.status} ${err.response.statusText}`
+        );
+      } else if (err.request) {
+        console.error("No response received:", err.request);
+        alert("Upload failed: No response from server.");
+      } else {
+        alert("Upload error: " + err.message);
+      }
       console.error(err);
       setMessage("❌ An error occurred. Please try again.");
     } finally {
@@ -163,12 +172,18 @@ export default function UploadPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-[640px] bg-white rounded-xl shadow-md p-10 space-y-6">
-        <div className="flex items-center justify-center space-x-4 mb-6">
-          <img src={AiMeetingOrganizer} alt={appTitle} className="w-12 h-12" />
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
-            {appTitle}
-          </h1>
-        </div>
+        {!file && (
+          <div className="flex items-center justify-center space-x-4 mb-6">
+            <img
+              src={AiMeetingOrganizer}
+              alt={appTitle}
+              className="w-12 h-12"
+            />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+              {appTitle}
+            </h1>
+          </div>
+        )}
 
         <div className="flex flex-col gap-3">
           <TopSection

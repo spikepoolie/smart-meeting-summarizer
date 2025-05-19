@@ -9,7 +9,7 @@ export default function TopSection({
   handleSampleFile,
 }) {
   const sampleFile =
-    "https://ai-meeting-summary.s3.us-east-1.amazonaws.com/sample-files/Special+Meeting+Audio+File+-+April+29%2C+2025.mp3";
+    "https://ai-meeting-summary.s3.us-east-1.amazonaws.com/sample-files/SpecialMeeting.mp3";
   return (
     <>
       <label className="text-sm font-medium text-gray-700">
