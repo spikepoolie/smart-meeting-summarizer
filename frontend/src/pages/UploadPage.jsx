@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FileInfo from "../components/FileInfo";
 import LoadingOverlay from "../components/LoadingOverlay";
@@ -31,6 +32,7 @@ export default function UploadPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const appTitle = "AI Meeting Summary Generator";
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (showPopup) {
@@ -172,6 +174,12 @@ export default function UploadPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-[640px] bg-white rounded-xl shadow-md p-10 space-y-6">
+        <button
+          onClick={() => navigate("/")}
+          className="text-blue-600 hover:underline text-sm font-medium mb-4"
+        >
+          ← Back to Intro
+        </button>
         {!file && (
           <div className="flex items-center justify-center space-x-4 mb-6">
             <img
