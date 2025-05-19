@@ -16,6 +16,8 @@ jobs:
       - name: Build React frontend
         run: |
           cd frontend
+          echo "REACT_APP_API_URL=https://summary.goemobile.net" > .env.production
+          echo "REACT_APP_ENV=production" >> .env.production
           npm install
           npm run build
 
