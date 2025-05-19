@@ -50,4 +50,4 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ${{ secrets.BACKEND_PATH }}
-            pm2 restart 2
+            /home/ubuntu/.nvm/versions/node/v18.17.0/bin/pm2 restart 3
