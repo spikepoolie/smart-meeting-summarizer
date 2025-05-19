@@ -13,14 +13,10 @@ export default function Summary({ summary, downloadPDF }) {
         </p>
         <button
           onClick={downloadPDF}
-          className="text-purple-600 hover:text-purple-800 mt-1 shrink-0"
-          title="Download PDF"
+          className="mt-4 flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
         >
-          <i
-            className="fa-solid fa-file-pdf text-red-600 text-xl cursor-pointer hover:opacity-80"
-            onClick={downloadPDF}
-            title="Download PDF"
-          />
+          <DocumentArrowDownIcon className="w-5 h-5" />
+          Download Summary as PDF
         </button>
       </div>
     </div>

@@ -29,6 +29,9 @@ jobs:
           target: "${{ secrets.FRONTEND_PATH }}"
 
       - name: Upload backend code to EC2
+        run: |
+          cd backend
+          npm install
         uses: appleboy/scp-action@v0.1.3
         with:
           host: ${{ secrets.EC2_HOST }}
