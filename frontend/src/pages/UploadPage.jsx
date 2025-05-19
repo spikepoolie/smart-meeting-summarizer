@@ -89,7 +89,6 @@ export default function UploadPage() {
 
     try {
       const baseUrl = process.env.REACT_APP_API_URL || "";
-      alert(baseUrl);
       const uploadRes = await axios.post(
         `${baseUrl}/api/transcribe/upload`,
         formData,
